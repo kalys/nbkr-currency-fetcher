@@ -5,4 +5,4 @@ require 'open-uri'
 Bundler.require :app
 
 require './nbkr_backend'
-run NbkrBackendApp
+run Nbkr::Application
