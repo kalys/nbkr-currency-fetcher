@@ -7,11 +7,9 @@ class NbkrBackendApp < Sinatra::Base
 end
 
 def currency_rates
-  currency_data = {}
   doc = Nokogiri::HTML(open("http://www.nbkr.kg/"))
-  %w{usd kzt rub eur}.each do |currency_nbkr_code|
-    currency_data[currency_nbkr_code.to_sym] = doc.xpath("//td/nobr[contains(.,'#{currency_nbkr_code.upcase}')]/../../td").first.content
+  %w{usd kzt rub eur}.inject({}) do |currency_data, currency_code|
+    currency_data[currency_code == 'rur' ? :rub : currency_code.to_sym] = doc.xpath("//td/nobr[contains(.,'#{currency_code.upcase}')]/../../td").first.content
+    currency_data
   end
-  currency_data[:rur] = currency_data.delete :rub
-  currency_data
 end
