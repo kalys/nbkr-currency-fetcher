@@ -1,6 +1,6 @@
 module Nbkr
   class Application < Sinatra::Base
-    get '/rates' do
+    get '/' do
       content_type 'application/json', :charset => 'utf-8'
       currency_rates.to_json
     end
