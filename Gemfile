@@ -4,6 +4,6 @@ group :app do
   gem 'sinatra'
   gem 'nokogiri'
   gem 'json'
-  gem 'dalli'
+  gem 'memcached-northscale'
   # gem 'sinatra-dalli'
 end
