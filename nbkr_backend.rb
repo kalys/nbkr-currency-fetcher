@@ -1,8 +1,15 @@
 module Nbkr
+  set :cache, Dalli::Client.new
+
   class Application < Sinatra::Base
     get '/' do
       content_type 'application/json', :charset => 'utf-8'
       currency_rates.to_json
+    end
+
+    get '/test' do
+      settings.cache.set('color', 'blue')
+      settings.cache.get('color')
     end
   end
 end
