@@ -33,7 +33,7 @@ module Sinatra
       private
 
       def client
-        options.cache_client ||= ::Dalli::Client.new options.cache_server
+        options.cache_client ||= ::Dalli::Client.new
       end
 
       def log(msg)

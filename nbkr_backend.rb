@@ -21,7 +21,9 @@ module Nbkr
 
     get '/' do
       content_type 'application/json', :charset => 'utf-8'
+      p 'request'
       cache 'cache', :expiry => 1800 do
+        p 'inside cache'
         currency_rates.to_json
       end
     end
