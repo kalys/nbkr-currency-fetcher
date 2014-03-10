@@ -3,7 +3,7 @@ module Nbkr
     def currency_rates
       doc = Nokogiri::HTML(open("http://www.nbkr.kg/"))
       %w{usd kzt rub eur}.inject({}) do |currency_data, currency_code|
-        currency_data[currency_code == 'rub' ? :rur : currency_code.to_sym] = doc.xpath("//td/nobr[contains(.,'#{currency_code.upcase}')]/../../td").first.content
+        currency_data[currency_code == 'rub' ? :rur : currency_code.to_sym] = doc.xpath("//td/nobr[contains(.,'#{currency_code.upcase}')]/../../td[3]").first.content
         currency_data
       end
     end
@@ -21,9 +21,7 @@ module Nbkr
 
     get '/' do
       content_type 'application/json', :charset => 'utf-8'
-      p 'request'
       cache 'cache', :expiry => 1800 do
-        p 'inside cache'
         currency_rates.to_json
       end
     end
